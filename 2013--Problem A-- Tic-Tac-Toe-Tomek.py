@@ -9,6 +9,15 @@ i=0;
 j=0;
 returnSTR=""
 list=[];
+
+x=0;
+o=0;
+t=0;
+min1=0
+max1=0
+
+
+
 for line in f:	
 	if(counter==0):
 		casenum=int(line)
@@ -20,63 +29,107 @@ for line in f:
 	counter=counter+1;
 	
 for i in range(0,casenum):
+    wina=0;
+    winb=0;
     returnSTR=returnSTR+'Case #'+str(i+1)+':';
-    a=list[j]
-    if(a=='OOOO'):
-        wina=1;
-    elif(a=='XXXX'):
-        winb=1;
-    else:
-        wina=0;
-        wib=0;
-    j=j+1
-    b=list[j]
-    if(b=='OOOO'):
-        wina=1;
-    elif(b=='XXXX'):
-        winb=1;
-    else:
-        wina=0;
-        wib=0;
-    j=j+1
-    c=list[j]
-    if(c=='OOOO'):
-        wina=1;
-    elif(c=='XXXX'):
-        winb=1;
-    else:
-        wina=0;
-        wib=0;
-    j=j+1
-    d=list[j]
-    if(d=='OOOO'):
-        wina=1;
-    elif(d=='XXXX'):
-        winb=1;
-    else:
-        wina=0;
-        wib=0;
-    j=j+1
-    for k in range(0,3):
-        if(a[k]=='O' and b[k]=='O' and c[k]=='O' and d[k]=='O'):
-            wina=1;
-        elif(a[k]=='X' and b[k]=='X' and c[k]=='X' and d[k]=='X'):
-            winb=1;          
+    min1=max1
+    max1=max1+4
+
+    
+    for z in range (min1,max1):
+       # if(wina==1 or winb==1): 
+        #    break;
+        o=0
+        x=0
+        t=0
+        if('.' in list[z]):
+            left=1;
         else: 
-            wina=0;
-            wib=0;
-    if((a[0]=='O' and b[1]=='O' and c[2]=='O' and d[3]=='O') or (a[3]=='O' and b[2]=='O' and c[1]=='O' and d[0]=='O')):
-        wina=1;
-    elif((a[0]=='X' and b[1]=='X' and c[2]=='X' and d[3]=='O') or (a[3]=='X' and b[2]=='X' and c[1]=='X' and d[0]=='X')):
-        wina=1; 
-    else: 
-        wina=0;
-        wib=0;
-    if(('.' in a) or ('.' in b) or ('.' in c) or ('.' in d)):
-        left=1;
-    else: 
-        left=0;
+            left=0;
+
+        for j in range (0,4):
+            if(list[z][j]=='X' ):
+                x=x+1;
+            elif(list[z][j]=='O' ):
+                o=o+1;           
+            elif(list[z][j]=='T' ):
+                t=t+1; 
         
+        if((o+t)==4):
+            wina=1
+            
+        elif((x+t)==4):
+            print(x+t)
+            winb=1
+           
+        #S="O="+str(o)+" X="+str(x)+" T="+str(t)+" A="+str(wina)+" B="+str(winb)+"\n"
+        #print(S)
+        
+        
+        
+        
+                   #diagnal  
+        o=0
+        x=0
+        t=0
+        for j in range (0,4):
+            if(list[min1+j][j]=='X' ):
+                x=x+1;
+            elif(list[min1+j][j]=='O' ):
+                o=o+1;           
+            elif(list[min1+j][j]=='T' ):
+                t=t+1; 
+        if((o+t)==4):
+            wina=1
+            break;
+        elif((x+t)==4):
+            winb=1
+            break;
+                
+         #diagnal
+        o=0
+        x=0
+        t=0        
+        for j in range (0,4):
+            if(list[min1+j][3-j]=='X' ):
+                x=x+1;
+            elif(list[min1+j][3-j]=='O' ):
+                o=o+1;           
+            elif(list[min1+j][3-j]=='T' ):
+                t=t+1; 
+        if((o+t)==4):
+            wina=1
+            break;
+        elif((x+t)==4):
+            winb=1
+            break;
+        
+        
+        for j in range (0,4):
+            x=0
+            o=0
+            t=0
+            for k in range(0,4):
+                if(list[min1+k][j]=='X' ):
+                    x=x+1;
+                elif(list[min1+k][j]=='O' ):
+                    o=o+1;           
+                elif(list[min1+k][j]=='T' ):
+                    t=t+1; 
+            if((o+t)==4):
+                wina=1
+                break;
+            elif((x+t)==4):
+                winb=1 
+                break;
+
+                
+      
+      
+      
+       
+
+            
     if(wina==1):
         returnSTR=returnSTR+" O won\n";
     elif(winb==1):
@@ -86,6 +139,6 @@ for i in range(0,casenum):
     else:
         returnSTR=returnSTR+" Draw\n";
         
-#print(returnSTR)
-out = open('out', 'w')
-out.write(returnSTR);
+print(returnSTR)
+#out = open('out', 'w')
+#out.write(returnSTR);      
